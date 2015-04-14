@@ -19,6 +19,25 @@ namespace TerrainDetectorServices
     // [System.Web.Script.Services.ScriptService]
     public class TerrainDetector : System.Web.Services.WebService
     {
+        private readonly List<Tuple<Color, string>> terrains;
+
+        private static readonly Color FARMLAND = Color.FromArgb(212, 229, 202);
+        private static readonly Color BUILT_UP = Color.FromArgb(240, 237, 228);
+        private static readonly Color FOREST = Color.FromArgb(201, 222, 169);
+
+        public TerrainDetector()
+        {
+            terrains = new List<Tuple<Color, string>>();
+
+            Color FARMLAND = Color.FromArgb(212, 229, 202);
+            Color BUILT_UP = Color.FromArgb(240, 237, 228);
+            Color FOREST = Color.FromArgb(201, 222, 169);
+
+            terrains.Add(new Tuple<Color, string>(FARMLAND, "Farmland"));
+            terrains.Add(new Tuple<Color, string>(BUILT_UP, "Built Up"));
+            terrains.Add(new Tuple<Color, string>(FOREST, "Forest"));
+
+        }
 
         [WebMethod]
         public string IdentifyTerrain(float lat, float lon)
@@ -46,8 +65,19 @@ namespace TerrainDetectorServices
                     }
                 }
             }
-            
-            return colours.OrderByDescending(c => c.Item2).Select(c => c.Item1.ToString()).FirstOrDefault();
+
+            var pixelColour = colours.OrderByDescending(c => c.Item2).Select(c => c.Item1).FirstOrDefault();
+
+            var matchedString = terrains.FirstOrDefault(t => t.Item1.Equals(pixelColour));
+
+            if (matchedString != null)
+            {
+                return matchedString.Item2;
+            }
+            else
+            {
+                return "Unknown";
+            }
         }
 
         /// <summary>
