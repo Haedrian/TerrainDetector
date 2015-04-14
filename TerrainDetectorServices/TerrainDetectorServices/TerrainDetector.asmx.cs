@@ -89,7 +89,7 @@ namespace TerrainDetectorServices
         {
             WebClient client = new WebClient();
 
-            var url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=100x100&maptype=terrain&format=png";
+            var url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=100x100&maptype=terrain&format=png&style=feature:all|element:labels|visibility:off";
 
             //client.DownloadFile(url,"image.pg")
 
