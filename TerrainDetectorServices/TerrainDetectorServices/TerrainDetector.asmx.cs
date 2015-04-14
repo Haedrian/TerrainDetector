@@ -35,6 +35,7 @@ namespace TerrainDetectorServices
             terrains.Add(new Tuple<Color, string>(BUILT_UP, "Built Up"));
             terrains.Add(new Tuple<Color, string>(FOREST, "Forest"));
             terrains.Add(new Tuple<Color, string>(Color.FromArgb(255, 241, 238, 230), "Beach"));
+            terrains.Add(new Tuple<Color, string>(Color.FromArgb(173, 205, 253), "Water"));
 
         }
 
@@ -89,7 +90,7 @@ namespace TerrainDetectorServices
         {
             WebClient client = new WebClient();
 
-            var url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=100x100&maptype=terrain&format=png&style=feature:all|element:labels|visibility:off";
+            var url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=16&size=100x100&maptype=terrain&format=png&style=feature:all|element:labels|visibility:off&style=feature:road|element:all|visibility:off";
 
             //client.DownloadFile(url,"image.pg")
 
